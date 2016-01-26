@@ -11,6 +11,9 @@ import java.util.List;
 /**
  * Created by ivsi on 1/4/2016.
  */
+@NamedQueries(
+        @NamedQuery(name = "Rentee.findAll", query = "From Rentee r")
+)
 @Entity
 public class Rentee {
 
@@ -25,11 +28,12 @@ public class Rentee {
     private boolean loggedIn;
     @JsonProperty(required = false)
 
-    @OneToMany(mappedBy = "rentee")
+    @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<BookReview> reviews;
 
     public Rentee() {
+        reviews = new ArrayList<>();
     }
 
     private Rentee(Long renteeId) {
@@ -37,10 +41,11 @@ public class Rentee {
         reviews = new ArrayList<>();
     }
 
-    public Rentee(Long renteeId, String username, String password) {
+    public Rentee(String username, String password, boolean loggedIn, List<BookReview> reviews) {
         this.username = username;
         this.password = password;
-        loggedIn = false;
+        this.loggedIn = loggedIn;
+        this.reviews = reviews;
     }
 
     public String getUsername() {

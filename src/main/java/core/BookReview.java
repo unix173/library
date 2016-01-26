@@ -7,6 +7,9 @@ import javax.persistence.*;
 /**
  * Created by ivsi on 1/4/2016.
  */
+@NamedQueries(
+        @NamedQuery(name = "BookReview.findByBookId", query = "From BookReview br where br.book.bookId = :bookId")
+)
 @Entity
 public class BookReview {
 
