@@ -1,0 +1,19 @@
+database:
+
+  driverClass: com.mysql.jdbc.Driver
+  
+  user: root
+  
+  password: admin
+  
+  url: jdbc:mysql://localhost:3306/zlib
+  
+  properties:
+   
+   charSet: UTF-8
+   
+   hibernate.dialect: org.hibernate.dialect.MySQLDialect  #org.hibernate.dialect.MySQL5InnoDBDialect
+   
+   hibernate.hbm2ddl.auto: create
+
+   hibernate.connection: autocommit

@@ -2,9 +2,7 @@ package application;
 
 import config.ZLibConfiguration;
 import core.Book;
-import core.BookReview;
-import core.Rentee;
-import core.Reservation;
+import dao.BookDAO;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
@@ -20,12 +18,13 @@ import resource.ReservationResources;
  */
 public class ZLibApplication extends Application<ZLibConfiguration> {
 
-    final HibernateBundle<ZLibConfiguration> hibernate = new HibernateBundle<ZLibConfiguration>(Book.class, BookReview.class, Rentee.class, Reservation.class) {
-        @Override
-        public DataSourceFactory getDataSourceFactory(ZLibConfiguration zLibConfiguration) {
-            return zLibConfiguration.getDataSourceFactory();
-        }
-    };
+    private final HibernateBundle<ZLibConfiguration> hibernateBundle =
+            new HibernateBundle<ZLibConfiguration>(Book.class) {
+                @Override
+                public DataSourceFactory getDataSourceFactory(ZLibConfiguration configuration) {
+                    return configuration.getDatabase();
+                }
+            };
 
     public static void main(String[] args) throws Exception {
         new ZLibApplication().run(args);
@@ -34,7 +33,9 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
     @Override
     public void run(ZLibConfiguration zLibConfiguration, Environment environment) throws Exception {
 
-        final BookResource bookResource = new BookResource();
+        final BookDAO bookDAO = new BookDAO(hibernateBundle.getSessionFactory());
+
+        final BookResource bookResource = new BookResource(bookDAO);
         final BookReviewResource bookReviewResource = new BookReviewResource();
         final RenteeResource renteeResource = new RenteeResource();
         final ReservationResources reservationResources = new ReservationResources();
@@ -48,6 +49,6 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
 
     @Override
     public void initialize(Bootstrap<ZLibConfiguration> bootstrap) {
-        bootstrap.addBundle(hibernate);
+        bootstrap.addBundle(hibernateBundle);
     }
 }

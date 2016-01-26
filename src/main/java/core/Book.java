@@ -20,12 +20,12 @@ import java.util.List;
 /**
  * Created by ivsi on 1/4/2016.
  */
-@NamedQueries({
-        @NamedQuery(
-                name = "findAll",
-                query = "from Book b"
-        )
-})
+//@NamedQueries({
+//        @NamedQuery(
+//                name = "findAll",
+//                query = "from Book b"
+//        )
+//})
 @Entity
 public class Book {
 
@@ -40,6 +40,7 @@ public class Book {
     @JsonProperty(required = false)
     private boolean available;
     @JsonProperty(required = false)
+
     @OneToMany(mappedBy = "book")
     private List<BookReview> bookReviews;
 

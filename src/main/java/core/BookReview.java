@@ -14,11 +14,13 @@ public class BookReview {
 
     private String title;
     private String text;
+
     @ManyToOne
-    @JoinColumn(name = "renteeId")
+    //@JoinColumn(name = "renteeId")
     private Rentee rentee;
+
     @ManyToOne
-    @JoinColumn(name = "bookId")
+    //@JoinColumn(name = "bookId")
     private Book book;
 
     public BookReview() {
