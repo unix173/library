@@ -4,6 +4,7 @@ package core;
  * Created by ivsi on 1/25/2016.
  */
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
@@ -20,17 +21,15 @@ import java.util.List;
 /**
  * Created by ivsi on 1/4/2016.
  */
-//@NamedQueries({
-//        @NamedQuery(
-//                name = "findAll",
-//                query = "from Book b"
-//        )
-//})
+
+@NamedQueries(
+        @NamedQuery(name = "Book.findAll", query = "From Book b")
+)
 @Entity
 public class Book {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long bookId;
     private String title;
     @JsonProperty(required = false)
@@ -39,9 +38,10 @@ public class Book {
     private LocalDate year;
     @JsonProperty(required = false)
     private boolean available;
-    @JsonProperty(required = false)
 
-    @OneToMany(mappedBy = "book")
+    @JsonProperty(required = false)
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<BookReview> bookReviews;
 
     public Book() {
@@ -49,13 +49,13 @@ public class Book {
         bookReviews = new ArrayList<>();
     }
 
-    public Book(long bookId, String title, String author, LocalDate year) {
+    public Book(long bookId, String title, String author, LocalDate year, List<BookReview> bookReviews) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.year = year;
+        this.bookReviews = bookReviews;
         this.available = true;
-        this.bookReviews = new ArrayList<>();
     }
 
     public void setBookId(long bookId) {

@@ -2,6 +2,8 @@ package application;
 
 import config.ZLibConfiguration;
 import core.Book;
+import core.BookReview;
+import core.Rentee;
 import dao.BookDAO;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
@@ -19,7 +21,7 @@ import resource.ReservationResources;
 public class ZLibApplication extends Application<ZLibConfiguration> {
 
     private final HibernateBundle<ZLibConfiguration> hibernateBundle =
-            new HibernateBundle<ZLibConfiguration>(Book.class) {
+            new HibernateBundle<ZLibConfiguration>(Book.class, BookReview.class, Rentee.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(ZLibConfiguration configuration) {
                     return configuration.getDatabase();

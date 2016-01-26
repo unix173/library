@@ -1,48 +1,39 @@
 package core;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 /**
- * Created by ivsi on 1/25/2016.
- **/
+ * Created by ivsi on 1/4/2016.
+ */
 @Entity
 public class BookReview {
 
     @Id
-    @GeneratedValue
-    private Long id;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bookReviewId;
     private String title;
     private String text;
 
     @ManyToOne
-    //@JoinColumn(name = "renteeId")
-    private Rentee rentee;
+    @JoinColumn(name = "bookId")
+    @JsonBackReference
+    private Book book;
 
     @ManyToOne
-    //@JoinColumn(name = "bookId")
-    private Book book;
+    @JsonBackReference
+    @JoinColumn(name = "renteeId")
+    private Rentee rentee;
 
     public BookReview() {
     }
 
-    public BookReview(String title, String text, Rentee rentee, Book book) {
+    public BookReview(Book book, String title, String text, Rentee rentee) {
+        this.book = book;
         this.title = title;
         this.text = text;
         this.rentee = rentee;
-        this.book = book;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Rentee getRentee() {
-        return rentee;
     }
 
     public Book getBook() {
@@ -57,8 +48,29 @@ public class BookReview {
         return text;
     }
 
+
+    public Long getBookReviewId() {
+        return bookReviewId;
+    }
+
+    public void setBookReviewId(Long bookReviewId) {
+        this.bookReviewId = bookReviewId;
+    }
+
+    public Rentee getRentee() {
+        return rentee;
+    }
+
+    public void setRentee(Rentee rentee) {
+        this.rentee = rentee;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     @Override
     public String toString() {
-        return String.format("\nRentee: %s\n Book: %s\n Title: %s\n Text: %s\n", rentee, book, title, text);
+        return String.format("\nRentee: %s\n Book: %s\n Title: %s\n Text: %s\n", book, title, text);
     }
 }

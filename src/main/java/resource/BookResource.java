@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 /**
  * Created by ivsi on 1/25/2016.
@@ -26,6 +27,12 @@ public class BookResource {
     @UnitOfWork
     public Long addBook(Book book) {
         return bookDAO.create(book);
+    }
+
+    @GET
+    @UnitOfWork
+    public List<Book> getBooks() {
+        return bookDAO.findAll();
     }
 
 }

@@ -1,23 +1,22 @@
 package core;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ivsi on 1/25/2016.
+ * Created by ivsi on 1/4/2016.
  */
 @Entity
 public class Rentee {
-    @Id
-    @GeneratedValue
-    private Long renteeId;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long renteeId;
     @JsonProperty(required = false)
     private String username;
     @JsonProperty(required = false)
@@ -25,9 +24,9 @@ public class Rentee {
     @JsonProperty(required = false)
     private boolean loggedIn;
     @JsonProperty(required = false)
-    private List<Reservation> reservations;
-    @JsonProperty(required = false)
+
     @OneToMany(mappedBy = "rentee")
+    @JsonManagedReference
     private List<BookReview> reviews;
 
     public Rentee() {
@@ -35,26 +34,13 @@ public class Rentee {
 
     private Rentee(Long renteeId) {
         this.renteeId = renteeId;
-        reservations = new ArrayList<>();
         reviews = new ArrayList<>();
     }
 
-    public Rentee(String username, String password, boolean loggedIn, List<Reservation> reservations, List<BookReview> reviews) {
+    public Rentee(Long renteeId, String username, String password) {
         this.username = username;
         this.password = password;
-        this.loggedIn = loggedIn;
-        this.reservations = reservations;
-        this.reviews = reviews;
-    }
-
-
-
-    public List<BookReview> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<BookReview> reviews) {
-        this.reviews = reviews;
+        loggedIn = false;
     }
 
     public String getUsername() {
@@ -71,14 +57,6 @@ public class Rentee {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
     }
 
     public boolean isLoggedIn() {
@@ -101,6 +79,4 @@ public class Rentee {
     public void setRenteeId(Long renteeId) {
         this.renteeId = renteeId;
     }
-
 }
-

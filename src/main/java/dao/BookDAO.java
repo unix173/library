@@ -22,7 +22,7 @@ public class BookDAO extends AbstractDAO<Book> {
         return persist(book).getBookId();
     }
 
-    public List<Book> findAll(){
-        return list(namedQuery("findAll"));
+    public List<Book> findAll() {
+        return list(namedQuery("Book.findAll"));
     }
 }

@@ -1,14 +1,10 @@
-C:\Users\ivsi\Desktop\ZLibrary\src\main\java\dao\BookReviewDAO.java
+C:\Users\ivsi\Desktop\ZLibrary\src\main\java\dao\BookDAO.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\resource\ReservationResources.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\resource\BookResource.java
-C:\Users\ivsi\Desktop\ZLibrary\src\main\java\dao\ReservationDAO.java
-C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\BookReview.java
-C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\Reservation.java
-C:\Users\ivsi\Desktop\ZLibrary\src\main\java\config\ZLibConfiguration.java
-C:\Users\ivsi\Desktop\ZLibrary\src\main\java\dao\BookDAO.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\application\ZLibApplication.java
+C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\BookReview.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\resource\BookReviewResource.java
-C:\Users\ivsi\Desktop\ZLibrary\src\main\java\dao\RenteeDAO.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\Book.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\resource\RenteeResource.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\Rentee.java
+C:\Users\ivsi\Desktop\ZLibrary\src\main\java\config\ZLibConfiguration.java
