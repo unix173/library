@@ -17,7 +17,7 @@ public class DeleteReservation {
     private final BookDAO bookDAO;
 
 
-    public DeleteReservation(ReservationDAO reservationDAO, RenteeDAO renteeDAO, BookDAO bookDAO) {
+    public DeleteReservation(ReservationDAO reservationDAO, BookDAO bookDAO, RenteeDAO renteeDAO) {
         this.reservationDAO = reservationDAO;
         this.renteeDAO = renteeDAO;
         this.bookDAO = bookDAO;

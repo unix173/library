@@ -3,10 +3,7 @@ package core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -14,6 +11,10 @@ import java.time.LocalDate;
  * Created by ivsi on 1/28/2016.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Reservation.findByRenteeId", query = "From Reservation r where r.rentee.renteeId = :=renteeId")
+}
+)
 public class Reservation {
 
     private static final int MAX_DURATION_DAYS = 30;

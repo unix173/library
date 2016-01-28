@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * Created by ivsi on 1/4/2016.
  */
-@NamedQueries(
+@NamedQueries({
         @NamedQuery(name = "Rentee.findAll", query = "From Rentee r")
-)
+})
 @Entity
 public class Rentee {
 

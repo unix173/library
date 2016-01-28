@@ -17,9 +17,10 @@ import javax.persistence.*;
  * Created by ivsi on 1/4/2016.
  */
 
-@NamedQueries(
-        @NamedQuery(name = "Book.findAll", query = "From Book b")
-)
+@NamedQueries({
+        @NamedQuery(name = "Book.findAll", query = "From Book b"),
+        @NamedQuery(name = "Book.findAvailable", query = "From Book b where b.isAvailable = true")
+})
 @Entity
 public class Book {
 

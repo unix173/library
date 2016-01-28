@@ -4,6 +4,8 @@ import core.Reservation;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 /**
  * Created by ivsi on 1/28/2016.
  */
@@ -24,5 +26,9 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
     public Reservation delete(Reservation reservationToDelete) {
         currentSession().delete(reservationToDelete);
         return reservationToDelete;
+    }
+
+    public List<Reservation> findByRenteeId(Long renteeId) {
+        return list(namedQuery("Reservation.findByUserId").setParameter("renteeId", renteeId));
     }
 }
