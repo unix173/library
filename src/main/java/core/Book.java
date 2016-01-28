@@ -19,33 +19,24 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "Book.findAll", query = "From Book b"),
-        @NamedQuery(name = "Book.findAvailable", query = "From Book b where b.isAvailable = true")
+        @NamedQuery(name = "Book.findAvailable", query = "From Book b where b.available = true")
 })
 @Entity
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(required = false)
     @JsonIgnore
     private Long bookId;
-
     private String title;
-
-    @JsonProperty(required = false)
     private String author;
-
-    @JsonProperty(required = false)
     @Column(nullable = true)
     private LocalDate year;
-
-    @JsonProperty(required = false)
     private boolean available;
 
-    @OneToMany(mappedBy = "operations/book", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
     @Column(nullable = true)
     @JsonManagedReference(value = "bookRef")
-    @JsonProperty(required = false)
     private List<BookReview> bookReviews;
 
     public Book() {
