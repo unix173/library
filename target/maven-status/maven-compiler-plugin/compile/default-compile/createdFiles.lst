@@ -1,12 +1,12 @@
+core\Book.class
 resource\RenteeResource.class
 resource\BookResource.class
 dao\RenteeDAO.class
 config\ZLibConfiguration.class
 dao\BookDAO.class
-application\ZLibApplication.class
-core\BookReview.class
-core\Book.class
 application\ZLibApplication$1.class
+application\ZLibApplication.class
 dao\BookReviewDAO.class
+core\BookReview.class
 resource\BookReviewResource.class
 core\Rentee.class

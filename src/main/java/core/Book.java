@@ -4,19 +4,14 @@ package core;
  * Created by ivsi on 1/25/2016.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ivsi on 1/4/2016.
@@ -30,23 +25,29 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long bookId;
+    @JsonProperty(required = false)
+    @JsonIgnore
+    private Long bookId;
+
     private String title;
+
     @JsonProperty(required = false)
     private String author;
+
     @JsonProperty(required = false)
+    @Column(nullable = true)
     private LocalDate year;
+
     @JsonProperty(required = false)
     private boolean available;
 
+    @OneToMany(mappedBy = "operations/book", fetch = FetchType.EAGER)
+    @Column(nullable = true)
+    @JsonManagedReference(value = "bookRef")
     @JsonProperty(required = false)
-    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<BookReview> bookReviews;
 
     public Book() {
-        available = true;
-        bookReviews = new ArrayList<>();
     }
 
     public Book(long bookId, String title, String author, LocalDate year, List<BookReview> bookReviews) {
@@ -74,22 +75,18 @@ public class Book {
         this.year = year;
     }
 
-    @JsonProperty
     public long getBookId() {
         return bookId;
     }
 
-    @JsonProperty
     public String getTitle() {
         return title;
     }
 
-    @JsonProperty
     public String getAuthor() {
         return author;
     }
 
-    @JsonProperty
     public LocalDate getYear() {
         return year;
     }
@@ -102,7 +99,6 @@ public class Book {
         this.available = available;
     }
 
-    @JsonProperty
     public List<BookReview> getBookReviews() {
         return bookReviews;
     }
@@ -121,7 +117,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("\nTile: %s Author: %s, Year: %s, Book Id: %s, Available: %s\n",
+        return String.format("\nTile: %s Author: %s, Year: %s, Test Id: %s, Available: %s\n",
                 title, author, year, bookId, available);
     }
 }

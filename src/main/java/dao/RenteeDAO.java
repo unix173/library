@@ -18,8 +18,20 @@ public class RenteeDAO extends AbstractDAO<Rentee> {
         return list(namedQuery("Rentee.findAll"));
     }
 
-    public long create(Rentee rentee) {
-        return persist(rentee).getRenteeId();
+    public Rentee create(Rentee rentee) {
+        return persist(rentee);
     }
 
+    public Rentee delete(Rentee rentee) {
+        currentSession().delete(rentee);
+        return rentee;
+    }
+
+    public Rentee update(Rentee rentee) {
+        return null;
+    }
+
+    public Rentee findById(Long renteeId) {
+        return get(renteeId);
+    }
 }

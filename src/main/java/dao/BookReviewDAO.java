@@ -15,11 +15,24 @@ public class BookReviewDAO extends AbstractDAO<BookReview> {
         super(sessionFactory);
     }
 
-    public long create(BookReview bookReview) {
-        return persist(bookReview).getBookReviewId();
+    public BookReview create(BookReview bookReview) {
+        return persist(bookReview);
+    }
+
+    public BookReview findById(Long bookReviewId) {
+        return get(bookReviewId);
     }
 
     public List<BookReview> findByBookId(Long bookId) {
         return list(namedQuery("BookReview.findByBookId").setParameter("bookId", bookId));
+    }
+
+    public BookReview delete(BookReview bookReviewId) {
+        currentSession().delete(bookReviewId);
+        return bookReviewId;
+    }
+
+    public BookReview update(BookReview bookReviewToUpdate) {
+        return persist(bookReviewToUpdate);
     }
 }

@@ -1,6 +1,7 @@
 package core;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,17 +20,20 @@ public class Rentee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    @JsonProperty(required = false)
     private Long renteeId;
-    @JsonProperty(required = false)
+
     private String username;
-    @JsonProperty(required = false)
     private String password;
+
     @JsonProperty(required = false)
     private boolean loggedIn;
-    @JsonProperty(required = false)
 
     @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @Column(nullable = true)
+    @JsonManagedReference(value = "renteeRef")
+    @JsonProperty(required = false)
     private List<BookReview> reviews;
 
     public Rentee() {
@@ -46,6 +50,14 @@ public class Rentee {
         this.password = password;
         this.loggedIn = loggedIn;
         this.reviews = reviews;
+    }
+
+    public Long getRenteeId() {
+        return renteeId;
+    }
+
+    public void setRenteeId(Long renteeId) {
+        this.renteeId = renteeId;
     }
 
     public String getUsername() {
@@ -77,11 +89,4 @@ public class Rentee {
         return String.format("Username: %s\n", username);
     }
 
-    public Long getRenteeId() {
-        return renteeId;
-    }
-
-    public void setRenteeId(Long renteeId) {
-        this.renteeId = renteeId;
-    }
 }

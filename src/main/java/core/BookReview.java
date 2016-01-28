@@ -1,6 +1,8 @@
 package core;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -15,18 +17,23 @@ public class BookReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(required = false)
+    @JsonIgnore
     private Long bookReviewId;
+
     private String title;
     private String text;
 
     @ManyToOne
     @JoinColumn(name = "bookId")
-    @JsonBackReference
+    @JsonBackReference(value = "bookRef")
+    @JsonProperty(required = false)
     private Book book;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "renteeId")
+    @JsonBackReference(value = "renteeRef")
+    @JsonProperty(required = false)
     private Rentee rentee;
 
     public BookReview() {
@@ -51,7 +58,6 @@ public class BookReview {
         return text;
     }
 
-
     public Long getBookReviewId() {
         return bookReviewId;
     }
@@ -72,8 +78,16 @@ public class BookReview {
         this.book = book;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public String toString() {
-        return String.format("\nRentee: %s\n Book: %s\n Title: %s\n Text: %s\n", book, title, text);
+        return String.format("\nRentee: %s\n Test: %s\n Title: %s\n Text: %s\n", book, title, text);
     }
 }

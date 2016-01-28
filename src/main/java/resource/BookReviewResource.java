@@ -2,13 +2,12 @@ package resource;
 
 import core.Book;
 import core.BookReview;
+import core.Rentee;
 import dao.BookReviewDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
@@ -23,15 +22,21 @@ public class BookReviewResource {
         this.bookReviewDAO = bookReviewDAO;
     }
 
-    @Path("{bookId}/bookReviews")
-    @POST
+    @Path("{bookId}/bookReview/rentees/{renteeId}")
     @UnitOfWork
-    public Long addBookReview(BookReview bookReview) {
+    @POST
+    public BookReview addBookReview(@PathParam("bookId") Long bookId, @PathParam("renteeId") Long renteeId, BookReview bookReview) {
+        Book book = new Book();
+        book.setBookId(bookId);
+        bookReview.setBook(book);
+        Rentee rentee = new Rentee();
+        rentee.setRenteeId(renteeId);
+        bookReview.setRentee(rentee);
         return bookReviewDAO.create(bookReview);
     }
 
     @GET
-    @Path("{bookId}/bookReviews")
+    @Path("{bookId}/bookReview")
     @UnitOfWork
     public List<BookReview> getBookReviews(@PathParam("bookId") Long bookId) {
         return bookReviewDAO.findByBookId(bookId);

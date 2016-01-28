@@ -4,9 +4,8 @@ import core.Rentee;
 import dao.RenteeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public class RenteeResource {
 
     @POST
     @UnitOfWork
-    public long addRentee(Rentee rentee) {
+    public Rentee addRentee(Rentee rentee) {
         return renteeDAO.create(rentee);
     }
 

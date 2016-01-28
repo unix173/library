@@ -14,7 +14,6 @@ import java.util.List;
  * Created by ivsi on 1/25/2016.
  */
 @Path("books")
-@Produces(MediaType.APPLICATION_JSON)
 public class BookResource {
 
     private final BookDAO bookDAO;
@@ -25,7 +24,7 @@ public class BookResource {
 
     @POST
     @UnitOfWork
-    public Long addBook(Book book) {
+    public Book addBook(Book book) {
         return bookDAO.create(book);
     }
 
@@ -33,6 +32,23 @@ public class BookResource {
     @UnitOfWork
     public List<Book> getBooks() {
         return bookDAO.findAll();
+    }
+
+    @PUT
+    @Path("{bookId}")
+    @UnitOfWork
+    public Book updateBook(@PathParam("bookId") Long bookId, Book book) {
+        Book bookToUpdate = bookDAO.findById(bookId);
+        bookToUpdate.setTitle(book.getTitle());
+        return bookDAO.update(bookToUpdate);
+    }
+
+    @DELETE
+    @Path("{bookId}")
+    @UnitOfWork
+    public Book deleteBook(@PathParam("bookId") Long bookId) {
+        Book bookToDelete = bookDAO.findById(bookId);
+        return bookDAO.delete(bookToDelete);
     }
 
 }

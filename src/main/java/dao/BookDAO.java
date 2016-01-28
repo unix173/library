@@ -18,11 +18,20 @@ public class BookDAO extends AbstractDAO<Book> {
         return get(id);
     }
 
-    public long create(Book book) {
-        return persist(book).getBookId();
+    public Book create(Book book) {
+        return persist(book);
     }
 
     public List<Book> findAll() {
         return list(namedQuery("Book.findAll"));
+    }
+
+    public Book update(Book book) {
+        return persist(book);
+    }
+
+    public Book delete(Book book) {
+        currentSession().delete(book);
+        return book;
     }
 }
