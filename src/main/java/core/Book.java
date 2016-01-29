@@ -9,7 +9,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -40,6 +42,8 @@ public class Book {
     private List<BookReview> bookReviews;
 
     public Book() {
+        this.available = true;
+        bookReviews = new ArrayList<>();
     }
 
     public Book(long bookId, String title, String author, LocalDate year, List<BookReview> bookReviews) {
@@ -111,5 +115,26 @@ public class Book {
     public String toString() {
         return String.format("\nTile: %s Author: %s, Year: %s, Test Id: %s, Available: %s\n",
                 title, author, year, bookId, available);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Book)) {
+            return false;
+        }
+
+        final Book that = (Book) o;
+
+        return Objects.equals(this.bookId, that.bookId) &&
+                Objects.equals(this.getTitle(), that.getTitle()) &&
+                Objects.equals(this.getAuthor(), that.getAuthor());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookId, title, author);
     }
 }
