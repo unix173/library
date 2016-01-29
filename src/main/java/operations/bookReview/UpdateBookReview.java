@@ -1,6 +1,7 @@
 package operations.bookReview;
 
 import core.BookReview;
+import core.Rentee;
 import dao.BookReviewDAO;
 
 /**

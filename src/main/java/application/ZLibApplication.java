@@ -13,17 +13,6 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import operations.book.AddNewBook;
-import operations.book.DeleteBook;
-import operations.book.UpdateBook;
-import operations.bookReview.AddNewBookReview;
-import operations.bookReview.DeleteBookReview;
-import operations.bookReview.UpdateBookReview;
-import operations.rentee.AddNewRentee;
-import operations.rentee.DeleteRentee;
-import operations.rentee.UpdateRentee;
-import operations.reservation.AddNewReservation;
-import operations.reservation.DeleteReservation;
 import resource.BookResource;
 import resource.BookReviewResource;
 import resource.RenteeResource;
@@ -71,9 +60,9 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
 
         //register resources
         final BookResource bookResource = new BookResource(bookDAO);
-        final BookReviewResource bookReviewResource = new BookReviewResource(bookReviewDAO);
+        final BookReviewResource bookReviewResource = new BookReviewResource(bookReviewDAO, renteeDAO, bookDAO);
         final RenteeResource renteeResource = new RenteeResource(renteeDAO);
-        final ReservationResource reservationResource = new ReservationResource(reservationDAO);
+        final ReservationResource reservationResource = new ReservationResource(reservationDAO, bookDAO, renteeDAO);
 
         environment.jersey().register(bookResource);
         environment.jersey().register(bookReviewResource);

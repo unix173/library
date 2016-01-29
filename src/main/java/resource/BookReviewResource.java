@@ -1,13 +1,14 @@
 package resource;
 
-import core.Book;
 import core.BookReview;
-import core.Rentee;
+import dao.BookDAO;
 import dao.BookReviewDAO;
+import dao.RenteeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import operations.bookReview.AddNewBookReview;
+import operations.bookReview.UpdateBookReview;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
@@ -17,29 +18,35 @@ import java.util.List;
 public class BookReviewResource {
 
     private final BookReviewDAO bookReviewDAO;
+    private final RenteeDAO renteeDAO;
+    private final BookDAO bookDAO;
 
-    public BookReviewResource(BookReviewDAO bookReviewDAO) {
+
+    public BookReviewResource(BookReviewDAO bookReviewDAO, RenteeDAO renteeDAO, BookDAO bookDAO) {
         this.bookReviewDAO = bookReviewDAO;
+        this.renteeDAO = renteeDAO;
+        this.bookDAO = bookDAO;
     }
 
-    @Path("{bookId}/bookReview/rentees/{renteeId}")
-    @UnitOfWork
     @POST
+    @Path("{bookId}/bookReviews/rentees/{renteeId}")
+    @UnitOfWork
     public BookReview addBookReview(@PathParam("bookId") Long bookId, @PathParam("renteeId") Long renteeId, BookReview bookReview) {
-        Book book = new Book();
-        book.setBookId(bookId);
-        bookReview.setBook(book);
-        Rentee rentee = new Rentee();
-        rentee.setRenteeId(renteeId);
-        bookReview.setRentee(rentee);
-        return bookReviewDAO.create(bookReview);
+        return new AddNewBookReview(bookReviewDAO, bookDAO, renteeDAO).execute(bookId, renteeId, bookReview);
     }
 
     @GET
-    @Path("{bookId}/bookReview")
+    @Path("{bookId}/bookReviews")
     @UnitOfWork
     public List<BookReview> getBookReviews(@PathParam("bookId") Long bookId) {
         return bookReviewDAO.findByBookId(bookId);
+    }
+
+    @PUT
+    @Path("{bookId}/bookReviews/{bookReviewId}")
+    @UnitOfWork
+    public BookReview updateBookReview(@PathParam("bookReviewId") Long bookReviewId, BookReview bookReview) {
+        return new UpdateBookReview(bookReviewDAO).execute(bookReviewId, bookReview);
     }
 
 }

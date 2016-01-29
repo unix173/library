@@ -21,19 +21,15 @@ public class Rentee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    @JsonProperty(required = false)
     private Long renteeId;
 
     private String username;
     private String password;
-
-    @JsonProperty(required = false)
     private boolean loggedIn;
 
     @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
     @Column(nullable = true)
     @JsonManagedReference(value = "renteeRef")
-    @JsonProperty(required = false)
     private List<BookReview> reviews;
 
     public Rentee() {

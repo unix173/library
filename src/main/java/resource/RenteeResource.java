@@ -3,6 +3,8 @@ package resource;
 import core.Rentee;
 import dao.RenteeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import operations.rentee.GetAllRentees;
+import operations.rentee.UpdateRentee;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,7 +30,20 @@ public class RenteeResource {
     @GET
     @UnitOfWork
     public List<Rentee> getRentees() {
-        return renteeDAO.findAll();
+        return new GetAllRentees(renteeDAO).execute();
+    }
+
+    @DELETE
+    @UnitOfWork
+    public Rentee deleteRentee(Rentee rentee) {
+        return renteeDAO.delete(rentee);
+    }
+
+    @PUT
+    @Path("{renteeId}")
+    @UnitOfWork
+    public Rentee updateRentee(@PathParam("renteeId") Long renteeId, Rentee rentee) {
+        return new UpdateRentee(renteeDAO).execute(renteeId, rentee);
     }
 
 

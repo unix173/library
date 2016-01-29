@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by ivsi on 1/4/2016.
@@ -27,13 +28,13 @@ public class BookReview {
     @ManyToOne
     @JoinColumn(name = "bookId")
     @JsonBackReference(value = "bookRef")
-    @JsonProperty(required = false)
+    @NotNull
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "renteeId")
     @JsonBackReference(value = "renteeRef")
-    @JsonProperty(required = false)
+    @NotNull
     private Rentee rentee;
 
     public BookReview() {
