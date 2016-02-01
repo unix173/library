@@ -27,6 +27,7 @@ public class UpdateBook {
             if (book.getYear() != null) {
                 bookToUpdate.setYear(book.getYear());
             }
+            bookToUpdate.setAvailable(book.isAvailable());
         }
         return bookDAO.update(bookToUpdate);
     }

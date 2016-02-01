@@ -3,6 +3,10 @@ package resource;
 import core.Book;
 import dao.BookDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import operations.book.DeleteBook;
+import operations.book.GetAllBooks;
+import operations.book.GetAvailableBooks;
+import operations.book.UpdateBook;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -31,24 +35,29 @@ public class BookResource {
     @GET
     @UnitOfWork
     public List<Book> getBooks() {
-        return bookDAO.findAll();
+        return new GetAllBooks(bookDAO).execute();
+    }
+
+    @GET
+    @Path("/available")
+    @UnitOfWork
+    public List<Book> getAvailableBooks() {
+        return new GetAvailableBooks(bookDAO).execute();
     }
 
     @PUT
     @Path("{bookId}")
     @UnitOfWork
     public Book updateBook(@PathParam("bookId") Long bookId, Book book) {
-        Book bookToUpdate = bookDAO.findById(bookId);
-        bookToUpdate.setTitle(book.getTitle());
-        return bookDAO.update(bookToUpdate);
+        return new UpdateBook(bookDAO).execute(bookId, book);
     }
 
     @DELETE
     @Path("{bookId}")
     @UnitOfWork
     public Book deleteBook(@PathParam("bookId") Long bookId) {
-        Book bookToDelete = bookDAO.findById(bookId);
-        return bookDAO.delete(bookToDelete);
+        return new DeleteBook(bookDAO).execute(bookId);
     }
+
 
 }

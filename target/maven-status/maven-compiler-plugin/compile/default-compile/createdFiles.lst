@@ -3,13 +3,17 @@ operations\bookReview\DeleteBookReview.class
 operations\book\ReturnBook.class
 config\ZLibConfiguration.class
 operations\book\DeleteBook.class
+operations\bookReview\GetBookReviews.class
 operations\reservation\AddNewReservation.class
 dao\ReservationDAO.class
+operations\reservation\GetReservationsByRentee.class
 core\Reservation.class
 resource\ReservationResource.class
+operations\reservation\GetReservationById.class
 operations\book\RentBook.class
 operations\rentee\AddNewRentee.class
 dao\BookReviewDAO.class
+operations\book\GetAllBooks.class
 core\Rentee.class
 operations\bookReview\UpdateBookReview.class
 resource\BookResource.class
@@ -20,6 +24,7 @@ operations\reservation\DeleteReservation.class
 core\BookReview.class
 operations\rentee\DeleteRentee.class
 core\Book.class
+operations\book\GetAvailableBooks.class
 operations\rentee\UpdateRentee.class
 operations\bookReview\AddNewBookReview.class
 application\ZLibApplication$1.class

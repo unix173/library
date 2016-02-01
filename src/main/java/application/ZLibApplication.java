@@ -4,6 +4,7 @@ import config.ZLibConfiguration;
 import core.Book;
 import core.BookReview;
 import core.Rentee;
+import core.Reservation;
 import dao.BookDAO;
 import dao.BookReviewDAO;
 import dao.RenteeDAO;
@@ -24,7 +25,7 @@ import resource.ReservationResource;
 public class ZLibApplication extends Application<ZLibConfiguration> {
 
     private final HibernateBundle<ZLibConfiguration> hibernateBundle =
-            new HibernateBundle<ZLibConfiguration>(Book.class, BookReview.class, Rentee.class) {
+            new HibernateBundle<ZLibConfiguration>(Book.class, BookReview.class, Rentee.class, Reservation.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(ZLibConfiguration configuration) {
                     return configuration.getDatabase();
@@ -44,20 +45,6 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
         final BookReviewDAO bookReviewDAO = new BookReviewDAO(hibernateBundle.getSessionFactory());
         final ReservationDAO reservationDAO = new ReservationDAO(hibernateBundle.getSessionFactory());
 
-        //register operation objects
-//        final AddNewBook addNewBook = new AddNewBook(bookDAO);
-//        final DeleteBook deleteBook = new DeleteBook(bookDAO);
-//        final UpdateBook updateBook = new UpdateBook(bookDAO);
-//        final AddNewBookReview addNewBookReview = new AddNewBookReview(bookReviewDAO);
-//        final DeleteBookReview deleteBookReview = new DeleteBookReview(bookReviewDAO);
-//        final UpdateBookReview updateBookReview = new UpdateBookReview(bookReviewDAO);
-//        final AddNewRentee addNewRentee = new AddNewRentee(renteeDAO);
-//        final UpdateRentee updateRentee = new UpdateRentee(renteeDAO);
-//        final DeleteRentee deleteRentee = new DeleteRentee(renteeDAO);
-//        final AddNewReservation addNewReservation = new AddNewReservation(reservationDAO, bookDAO, renteeDAO);
-//        final DeleteReservation deleteReservation = new DeleteReservation(reservationDAO, bookDAO, renteeDAO);
-
-
         //register resources
         final BookResource bookResource = new BookResource(bookDAO);
         final BookReviewResource bookReviewResource = new BookReviewResource(bookReviewDAO, renteeDAO, bookDAO);
@@ -67,7 +54,7 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
         environment.jersey().register(bookResource);
         environment.jersey().register(bookReviewResource);
         environment.jersey().register(renteeResource);
-
+        environment.jersey().register(reservationResource);
     }
 
     @Override

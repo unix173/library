@@ -3,6 +3,8 @@ package resource;
 import core.Rentee;
 import dao.RenteeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import operations.rentee.AddNewRentee;
+import operations.rentee.DeleteRentee;
 import operations.rentee.GetAllRentees;
 import operations.rentee.UpdateRentee;
 
@@ -24,7 +26,7 @@ public class RenteeResource {
     @POST
     @UnitOfWork
     public Rentee addRentee(Rentee rentee) {
-        return renteeDAO.create(rentee);
+        return new AddNewRentee(renteeDAO).execute(rentee);
     }
 
     @GET
@@ -34,9 +36,10 @@ public class RenteeResource {
     }
 
     @DELETE
+    @Path("/{renteeId}")
     @UnitOfWork
-    public Rentee deleteRentee(Rentee rentee) {
-        return renteeDAO.delete(rentee);
+    public Rentee deleteRentee(@PathParam("renteeId") Long renteeId) {
+        return new DeleteRentee(renteeDAO).execute(renteeId);
     }
 
     @PUT

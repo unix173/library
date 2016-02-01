@@ -20,12 +20,10 @@ public class Rentee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long renteeId;
 
     private String username;
     private String password;
-    private boolean loggedIn;
 
     @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
     @Column(nullable = true)
@@ -39,13 +37,6 @@ public class Rentee {
     private Rentee(Long renteeId) {
         this.renteeId = renteeId;
         reviews = new ArrayList<>();
-    }
-
-    public Rentee(String username, String password, boolean loggedIn, List<BookReview> reviews) {
-        this.username = username;
-        this.password = password;
-        this.loggedIn = loggedIn;
-        this.reviews = reviews;
     }
 
     public Long getRenteeId() {
@@ -70,14 +61,6 @@ public class Rentee {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
     }
 
     @Override

@@ -3,6 +3,8 @@ import com.google.common.collect.ImmutableList;
 import core.Book;
 import dao.BookDAO;
 import io.dropwizard.testing.junit.ResourceTestRule;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.assertj.core.internal.cglib.core.Local;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -18,6 +20,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,7 +31,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by ivsi on 1/29/2016.
  */
-
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class BookResourceTest {
     private static final BookDAO bookDAO = mock(BookDAO.class);
@@ -45,6 +48,7 @@ public class BookResourceTest {
     @Before
     public void setUp() {
         book = new Book();
+        book.setBookId(-9000);
         book.setTitle("Book1");
         book.setAuthor("Author1");
     }
@@ -76,6 +80,5 @@ public class BookResourceTest {
         verify(bookDAO).findAll();
         assertThat(response).containsAll(books);
     }
-
 
 }

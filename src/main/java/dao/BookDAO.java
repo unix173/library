@@ -34,4 +34,9 @@ public class BookDAO extends AbstractDAO<Book> {
         currentSession().delete(book);
         return book;
     }
+
+    public List<Book> findAvailable() {
+        return list(namedQuery("Book.findAvailable"));
+    }
+
 }

@@ -6,6 +6,7 @@ import dao.BookReviewDAO;
 import dao.RenteeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import operations.bookReview.AddNewBookReview;
+import operations.bookReview.GetBookReviews;
 import operations.bookReview.UpdateBookReview;
 
 import javax.ws.rs.*;
@@ -39,7 +40,7 @@ public class BookReviewResource {
     @Path("{bookId}/bookReviews")
     @UnitOfWork
     public List<BookReview> getBookReviews(@PathParam("bookId") Long bookId) {
-        return bookReviewDAO.findByBookId(bookId);
+        return new GetBookReviews(bookReviewDAO).execute(bookId);
     }
 
     @PUT

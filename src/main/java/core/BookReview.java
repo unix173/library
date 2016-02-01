@@ -40,13 +40,6 @@ public class BookReview {
     public BookReview() {
     }
 
-    public BookReview(Book book, String title, String text, Rentee rentee) {
-        this.book = book;
-        this.title = title;
-        this.text = text;
-        this.rentee = rentee;
-    }
-
     public Book getBook() {
         return book;
     }

@@ -5,6 +5,7 @@ C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\BookReview.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\book\AddNewBook.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\reservation\AddNewReservation.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\bookReview\UpdateBookReview.java
+C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\rentee\GetAllRentees.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\resource\ReservationResource.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\reservation\DeleteReservation.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\dao\BookDAO.java

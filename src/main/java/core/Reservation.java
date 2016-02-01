@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Reservation.findByRenteeId", query = "From Reservation r where r.rentee.renteeId = :=renteeId")
+        @NamedQuery(name = "Reservation.findByRenteeId", query = "From Reservation r where r.rentee.renteeId = :renteeId"),
 }
 )
 public class Reservation {
@@ -21,14 +21,16 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(required = false)
-    @JsonIgnore
     private Long reservationId;
 
-    @NotNull
+    @OneToOne()
+    @JoinColumn(name = "bookId", insertable = false, updatable = false)
     private Book book;
-    @NotNull
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "renteeId", insertable = false, updatable = false)
     private Rentee rentee;
+
     private LocalDate creationDate;
 
     public Reservation() {

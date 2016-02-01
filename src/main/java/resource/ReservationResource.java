@@ -7,6 +7,8 @@ import dao.ReservationDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import operations.reservation.AddNewReservation;
 import operations.reservation.DeleteReservation;
+import operations.reservation.GetReservationById;
+import operations.reservation.GetReservationsByRentee;
 
 import javax.ws.rs.*;
 import java.util.List;
@@ -31,25 +33,25 @@ public class ReservationResource {
     @Path("/rentees/{renteeId}")
     @UnitOfWork
     public List<Reservation> getReservationsByRentee(@PathParam("renteeId") Long renteeId) {
-        return reservationDAO.findByRenteeId(renteeId);
+        return new GetReservationsByRentee(reservationDAO, bookDAO, renteeDAO).execute(renteeId);
     }
 
     @GET
-    @Path("{reservationId}")
+    @Path("/{reservationId}")
     @UnitOfWork
     public Reservation getReservationById(@PathParam("reservationId") Long reservationId) {
-        return reservationDAO.findById(reservationId);
+        return new GetReservationById(reservationDAO).execute(reservationId);
     }
 
     @POST
-    @Path("books/{bookId}/rentees/{renteeId}}")
+    @Path("/books/{bookId}/rentees/{renteeId}")
     @UnitOfWork
     public Reservation createReservation(@PathParam("bookId") Long bookId, @PathParam("renteeId") Long renteeId) {
         return new AddNewReservation(reservationDAO, bookDAO, renteeDAO).execute(bookId, renteeId);
     }
 
     @DELETE
-    @Path("{reservationId}")
+    @Path("/{reservationId}")
     @UnitOfWork
     public Reservation deleteReservation(@PathParam("reservationId") Long reservationId) {
         return new DeleteReservation(reservationDAO, bookDAO, renteeDAO).execute(reservationId);

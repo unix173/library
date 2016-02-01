@@ -7,6 +7,8 @@ package core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,7 +30,6 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long bookId;
     private String title;
     private String author;
@@ -40,20 +41,6 @@ public class Book {
     @Column(nullable = true)
     @JsonManagedReference(value = "bookRef")
     private List<BookReview> bookReviews;
-
-    public Book() {
-        this.available = true;
-        bookReviews = new ArrayList<>();
-    }
-
-    public Book(long bookId, String title, String author, LocalDate year, List<BookReview> bookReviews) {
-        this.bookId = bookId;
-        this.title = title;
-        this.author = author;
-        this.year = year;
-        this.bookReviews = bookReviews;
-        this.available = true;
-    }
 
     public void setBookId(long bookId) {
         this.bookId = bookId;
@@ -96,6 +83,9 @@ public class Book {
     }
 
     public List<BookReview> getBookReviews() {
+        if (bookReviews == null) {
+            bookReviews = new ArrayList<>();
+        }
         return bookReviews;
     }
 
