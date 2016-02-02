@@ -1,6 +1,6 @@
 package operations.book;
 
-import core.Book;
+import core.book.Book;
 import dao.BookDAO;
 
 import java.util.List;

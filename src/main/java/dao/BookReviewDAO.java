@@ -1,6 +1,5 @@
 package dao;
 
-import core.Book;
 import core.BookReview;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;

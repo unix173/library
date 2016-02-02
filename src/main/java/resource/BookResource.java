@@ -1,17 +1,13 @@
 package resource;
 
-import core.Book;
+import core.book.Book;
 import dao.BookDAO;
 import io.dropwizard.hibernate.UnitOfWork;
-import operations.book.DeleteBook;
-import operations.book.GetAllBooks;
-import operations.book.GetAvailableBooks;
-import operations.book.UpdateBook;
+import operations.book.*;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 /**
@@ -29,7 +25,7 @@ public class BookResource {
     @POST
     @UnitOfWork
     public Book addBook(Book book) {
-        return bookDAO.create(book);
+        return new AddNewBook(bookDAO).execute(book);
     }
 
     @GET

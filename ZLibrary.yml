@@ -29,4 +29,4 @@ database:
    
    hibernate.dialect: org.hibernate.dialect.MySQLDialect  #org.hibernate.dialect.MySQL5InnoDBDialect
    
-   hibernate.hbm2ddl.auto: create
+   hibernate.hbm2ddl.auto: update

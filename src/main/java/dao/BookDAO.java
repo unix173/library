@@ -1,6 +1,6 @@
 package dao;
 
-import core.Book;
+import core.book.Book;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
@@ -35,6 +35,7 @@ public class BookDAO extends AbstractDAO<Book> {
         return book;
     }
 
+    // TODO fix later!
     public List<Book> findAvailable() {
         return list(namedQuery("Book.findAvailable"));
     }

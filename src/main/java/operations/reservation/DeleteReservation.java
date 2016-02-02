@@ -1,7 +1,6 @@
 package operations.reservation;
 
-import core.Book;
-import core.Rentee;
+import core.book.Book;
 import core.Reservation;
 import dao.BookDAO;
 import dao.RenteeDAO;

@@ -1,6 +1,6 @@
 package operations.bookReview;
 
-import core.Book;
+import core.book.Book;
 import core.BookReview;
 import core.Rentee;
 import dao.BookDAO;

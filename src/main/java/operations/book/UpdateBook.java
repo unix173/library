@@ -1,7 +1,6 @@
 package operations.book;
 
-import core.Book;
-import core.BookReview;
+import core.book.Book;
 import dao.BookDAO;
 
 /**

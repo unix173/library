@@ -8,6 +8,8 @@ import io.dropwizard.hibernate.UnitOfWork;
 import operations.bookReview.AddNewBookReview;
 import operations.bookReview.GetBookReviews;
 import operations.bookReview.UpdateBookReview;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import java.util.List;
@@ -21,7 +23,7 @@ public class BookReviewResource {
     private final BookReviewDAO bookReviewDAO;
     private final RenteeDAO renteeDAO;
     private final BookDAO bookDAO;
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(BookReviewResource.class);
 
     public BookReviewResource(BookReviewDAO bookReviewDAO, RenteeDAO renteeDAO, BookDAO bookDAO) {
         this.bookReviewDAO = bookReviewDAO;

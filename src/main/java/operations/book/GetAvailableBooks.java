@@ -1,6 +1,6 @@
 package operations.book;
 
-import core.Book;
+import core.book.Book;
 import dao.BookDAO;
 
 import java.util.List;
@@ -16,6 +16,6 @@ public class GetAvailableBooks {
     }
 
     public List<Book> execute() {
-        return bookDAO.findAvailable();
+        throw new UnsupportedOperationException();
     }
 }
