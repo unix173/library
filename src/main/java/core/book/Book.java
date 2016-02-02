@@ -31,7 +31,8 @@ import javax.persistence.*;
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
-        property = "type")
+        property = "type",
+        defaultImpl = PaperBook.class)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = EBook.class, name = "eBook"),
         @JsonSubTypes.Type(value = PaperBook.class, name = "paperBook")})

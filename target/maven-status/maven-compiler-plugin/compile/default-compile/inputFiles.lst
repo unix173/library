@@ -20,11 +20,13 @@ C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\bookmedium\EBookReader.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\rentee\AddNewRentee.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\reservation\GetReservationsByRentee.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\book\UpdateBook.java
+C:\Users\ivsi\Desktop\ZLibrary\src\main\java\auth\UserAuthenticator.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\resource\BookResource.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\ebookreader\GetAllEBookReaders.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\book\EBook.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\book\Book.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\core\Reservation.java
+C:\Users\ivsi\Desktop\ZLibrary\src\main\java\auth\UserAuthorizer.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\config\ZLibConfiguration.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\book\GetAllBooks.java
 C:\Users\ivsi\Desktop\ZLibrary\src\main\java\operations\bookReview\DeleteBookReview.java

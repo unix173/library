@@ -19,6 +19,7 @@ operations\rentee\AddNewRentee.class
 dao\BookReviewDAO.class
 core\bookmedium\BookMedium.class
 operations\book\GetAllBooks.class
+auth\UserAuthorizer.class
 core\Rentee.class
 core\bookmedium\EBookReader.class
 operations\bookReview\UpdateBookReview.class
@@ -29,6 +30,7 @@ application\ZLibApplication.class
 dao\EBookReaderDAO.class
 operations\ebookreader\AddNewEBookReader.class
 operations\reservation\DeleteReservation.class
+auth\UserAuthenticator.class
 core\BookReview.class
 operations\rentee\DeleteRentee.class
 core\bookmedium\MediumType.class

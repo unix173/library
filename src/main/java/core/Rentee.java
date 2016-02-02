@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.security.auth.Subject;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
         @NamedQuery(name = "Rentee.findAll", query = "From Rentee r")
 })
 @Entity
-public class Rentee {
+public class Rentee implements Principal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +27,17 @@ public class Rentee {
     private String username;
     private String password;
 
+
     @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
     @Column(nullable = true)
     @JsonManagedReference(value = "renteeRef")
     private List<BookReview> reviews;
 
-    public Rentee() {
-        reviews = new ArrayList<>();
-    }
-
-    private Rentee(Long renteeId) {
-        this.renteeId = renteeId;
-        reviews = new ArrayList<>();
+    public List<BookReview> getReviews() {
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+        }
+        return reviews;
     }
 
     public Long getRenteeId() {
@@ -66,6 +67,16 @@ public class Rentee {
     @Override
     public String toString() {
         return String.format("Username: %s\n", username);
+    }
+
+    @Override
+    public String getName() {
+        return username;
+    }
+
+    @Override
+    public boolean implies(Subject subject) {
+        return false;
     }
 
 }

@@ -1,5 +1,7 @@
 package application;
 
+import auth.UserAuthenticator;
+import auth.UserAuthorizer;
 import config.ZLibConfiguration;
 import core.book.Book;
 import core.BookReview;
@@ -10,6 +12,8 @@ import core.book.PaperBook;
 import core.bookmedium.EBookReader;
 import dao.*;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -56,6 +60,10 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
         environment.jersey().register(renteeResource);
         environment.jersey().register(reservationResource);
         environment.jersey().register(eBookReaderResource);
+        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<Rentee>()
+                .setAuthenticator(new UserAuthenticator(renteeDAO, hibernateBundle.getSessionFactory()))
+                .setAuthorizer(new UserAuthorizer())
+                .buildAuthFilter()));
     }
 
     @Override

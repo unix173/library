@@ -107,6 +107,7 @@
     <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-client:2.22.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-debug-all:5.0.4" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.6" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-auth:0.9.2" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-logging:0.9.2" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-logback:3.1.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.12" level="project" />
