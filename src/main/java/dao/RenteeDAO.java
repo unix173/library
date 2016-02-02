@@ -28,7 +28,7 @@ public class RenteeDAO extends AbstractDAO<Rentee> {
     }
 
     public Rentee update(Rentee rentee) {
-        return null;
+        return persist(rentee);
     }
 
     public Rentee findById(Long renteeId) {

@@ -1,15 +1,18 @@
 package resource;
 
+import core.Rentee;
 import core.Reservation;
 import dao.BookDAO;
 import dao.RenteeDAO;
 import dao.ReservationDAO;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import operations.reservation.AddNewReservation;
 import operations.reservation.DeleteReservation;
 import operations.reservation.GetReservationById;
 import operations.reservation.GetReservationsByRentee;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import java.util.List;
 
@@ -43,11 +46,11 @@ public class ReservationResource {
         return new GetReservationById(reservationDAO).execute(reservationId);
     }
 
+    @PermitAll
     @POST
-    @Path("/books/{bookId}/rentees/{renteeId}")
     @UnitOfWork
-    public Reservation createReservation(@PathParam("bookId") Long bookId, @PathParam("renteeId") Long renteeId) {
-        return new AddNewReservation(reservationDAO, bookDAO, renteeDAO).execute(bookId, renteeId);
+    public Reservation createReservation(Reservation reservation) {
+        return new AddNewReservation(reservationDAO, bookDAO, renteeDAO).execute(reservation);
     }
 
     @DELETE

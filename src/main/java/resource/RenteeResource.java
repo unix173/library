@@ -8,6 +8,7 @@ import operations.rentee.DeleteRentee;
 import operations.rentee.GetAllRentees;
 import operations.rentee.UpdateRentee;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -23,18 +24,22 @@ public class RenteeResource {
         this.renteeDAO = renteeDAO;
     }
 
+    @PermitAll
     @POST
     @UnitOfWork
     public Rentee addRentee(Rentee rentee) {
         return new AddNewRentee(renteeDAO).execute(rentee);
     }
 
+    @PermitAll
     @GET
     @UnitOfWork
     public List<Rentee> getRentees() {
         return new GetAllRentees(renteeDAO).execute();
     }
 
+
+    @PermitAll
     @DELETE
     @Path("/{renteeId}")
     @UnitOfWork
@@ -42,6 +47,7 @@ public class RenteeResource {
         return new DeleteRentee(renteeDAO).execute(renteeId);
     }
 
+    @PermitAll
     @PUT
     @Path("{renteeId}")
     @UnitOfWork

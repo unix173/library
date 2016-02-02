@@ -27,7 +27,6 @@ public class Rentee implements Principal {
     private String username;
     private String password;
 
-
     @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
     @Column(nullable = true)
     @JsonManagedReference(value = "renteeRef")

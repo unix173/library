@@ -22,11 +22,11 @@ public class Reservation {
     private Long reservationId;
 
     @OneToOne()
-    @JoinColumn(name = "bookId", insertable = false, updatable = false)
+    @JoinColumn(name = "bookId")
     private Book book;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "renteeId", insertable = false, updatable = false)
+    @JoinColumn(name = "renteeId")
     private Rentee rentee;
 
     private LocalDate creationDate;

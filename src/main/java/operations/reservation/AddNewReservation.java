@@ -22,19 +22,21 @@ public class AddNewReservation {
         this.renteeDAO = renteeDAO;
     }
 
-    public Reservation execute(Long bookId, Long renteeId) {
-        Rentee rentee = renteeDAO.findById(renteeId);
-        Book bookToRent = bookDAO.findById(bookId);
-        Reservation reservation = null;
+    public Reservation execute(Reservation reservation) {
+        if (reservation.getBook() == null || reservation.getRentee() == null) {
+            return null;
+        }
+        Rentee rentee = renteeDAO.findById(reservation.getRentee().getRenteeId());
+        Book bookToRent = bookDAO.findById(reservation.getBook().getBookId());
+        Reservation reservationToCreate = null;
         if (rentee != null && bookToRent != null) {
-            reservation = new Reservation(bookToRent, rentee);
             if ((bookToRent.isAvailable())) {
+                reservationToCreate = new Reservation(bookToRent, rentee);
                 bookToRent.setAvailable(false);
                 bookDAO.update(bookToRent);
-                reservation = new Reservation(bookToRent, rentee);
             }
         }
-        return reservationDAO.create(reservation);
+        return reservationDAO.create(reservationToCreate);
     }
 
 }

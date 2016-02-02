@@ -44,8 +44,8 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
         final BookDAO bookDAO = new BookDAO(hibernateBundle.getSessionFactory());
         final RenteeDAO renteeDAO = new RenteeDAO(hibernateBundle.getSessionFactory());
         final BookReviewDAO bookReviewDAO = new BookReviewDAO(hibernateBundle.getSessionFactory());
-        final ReservationDAO reservationDAO = new ReservationDAO(hibernateBundle.getSessionFactory());
         final EBookReaderDAO eBookReaderDAO = new EBookReaderDAO(hibernateBundle.getSessionFactory());
+        final ReservationDAO reservationDAO = new ReservationDAO(hibernateBundle.getSessionFactory());
 
         //register resources
         final BookResource bookResource = new BookResource(bookDAO);
@@ -53,17 +53,18 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
         final RenteeResource renteeResource = new RenteeResource(renteeDAO);
         final ReservationResource reservationResource = new ReservationResource(reservationDAO, bookDAO, renteeDAO);
         final EBookReaderResource eBookReaderResource = new EBookReaderResource(eBookReaderDAO);
-
         //register jersey routes (resources)
+
+        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<Rentee>()
+                .setAuthenticator(new UserAuthenticator(renteeDAO, hibernateBundle.getSessionFactory()))
+                .setAuthorizer(new UserAuthorizer())
+                .buildAuthFilter()));
         environment.jersey().register(bookResource);
         environment.jersey().register(bookReviewResource);
         environment.jersey().register(renteeResource);
         environment.jersey().register(reservationResource);
         environment.jersey().register(eBookReaderResource);
-        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<Rentee>()
-                .setAuthenticator(new UserAuthenticator(renteeDAO, hibernateBundle.getSessionFactory()))
-                .setAuthorizer(new UserAuthorizer())
-                .buildAuthFilter()));
+
     }
 
     @Override
