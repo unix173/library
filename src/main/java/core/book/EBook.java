@@ -1,21 +1,24 @@
 package core.book;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import core.bookmedium.BookMedium;
 import core.bookmedium.EBookReader;
+import org.hibernate.annotations.Cascade;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by ivsi on 2/2/2016.
  */
 @Entity
 @DiscriminatorValue("ebook")
+
 public class EBook extends Book {
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "eBookReaderId")
     private EBookReader eBookReader;
 

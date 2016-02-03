@@ -1,9 +1,7 @@
 package core;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.security.auth.Subject;
@@ -20,6 +18,8 @@ import java.util.List;
         @NamedQuery(name = "Rentee.findByUsername", query = "From Rentee r where r.username = :username")
 })
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+        property = "@id")
 public class Rentee implements Principal {
 
     @Id
@@ -32,9 +32,11 @@ public class Rentee implements Principal {
     @Column(nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Column(nullable = true)
     @JsonManagedReference(value = "renteeRef")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+            property = "@renteeId")
     private List<BookReview> reviews;
 
     public List<BookReview> getReviews() {

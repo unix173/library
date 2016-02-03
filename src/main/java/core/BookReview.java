@@ -1,8 +1,6 @@
 package core;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import core.book.Book;
 
 import javax.persistence.*;
@@ -15,6 +13,7 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "BookReview.findByBookId", query = "From BookReview br where br.book.bookId = :bookId")
 })
 @Entity
+
 public class BookReview {
 
     @Id

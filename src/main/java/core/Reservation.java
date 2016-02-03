@@ -1,6 +1,8 @@
 package core;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import core.book.Book;
 import org.assertj.core.internal.cglib.core.Local;
 
@@ -15,6 +17,8 @@ import java.time.LocalDate;
         @NamedQuery(name = "Reservation.findByRenteeId", query = "From Reservation r where r.rentee.username = :username"),
 }
 )
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+        property = "@id")
 public class Reservation {
 
     private static final int MAX_DURATION_DAYS = 30;
@@ -23,7 +27,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationId;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bookId")
     private Book book;
 

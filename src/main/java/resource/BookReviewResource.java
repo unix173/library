@@ -28,7 +28,6 @@ public class BookReviewResource {
     private final BookReviewDAO bookReviewDAO;
     private final RenteeDAO renteeDAO;
     private final BookDAO bookDAO;
-    private static final Logger LOGGER = LoggerFactory.getLogger(BookReviewResource.class);
 
     public BookReviewResource(BookReviewDAO bookReviewDAO, RenteeDAO renteeDAO, BookDAO bookDAO) {
         this.bookReviewDAO = bookReviewDAO;

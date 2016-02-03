@@ -4,10 +4,7 @@ package core.book;
  * Created by ivsi on 1/25/2016.
  */
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import core.bookmedium.BookMedium;
 import core.BookReview;
 
@@ -53,6 +50,8 @@ public abstract class Book {
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
     @Column(nullable = true)
     @JsonManagedReference(value = "bookRef")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+            property = "@bookId")
     private List<BookReview> bookReviews;
 
     public abstract boolean isAvailable();

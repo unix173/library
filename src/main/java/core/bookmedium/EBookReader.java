@@ -1,7 +1,8 @@
 package core.bookmedium;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import core.book.EBook;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,9 +27,10 @@ public class EBookReader implements BookMedium {
     }
 
     //should take a look
-    @OneToMany(mappedBy = "eBookReader", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "eBookReader", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<EBook> eBookList;
+
 
     public Long geteBookReaderId() {
         return eBookReaderId;
