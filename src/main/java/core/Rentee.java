@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.security.auth.Subject;
+import javax.validation.constraints.NotNull;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,17 +16,21 @@ import java.util.List;
  * Created by ivsi on 1/4/2016.
  */
 @NamedQueries({
-        @NamedQuery(name = "Rentee.findAll", query = "From Rentee r")
+        @NamedQuery(name = "Rentee.findAll", query = "From Rentee r"),
+        @NamedQuery(name = "Rentee.findByUsername", query = "From Rentee r where r.username = :username")
 })
 @Entity
 public class Rentee implements Principal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long renteeId;
-
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private Role role;
+    @Column(nullable = false)
+    private String email;
 
     @OneToMany(mappedBy = "rentee", fetch = FetchType.EAGER)
     @Column(nullable = true)
@@ -39,12 +44,12 @@ public class Rentee implements Principal {
         return reviews;
     }
 
-    public Long getRenteeId() {
-        return renteeId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRenteeId(Long renteeId) {
-        this.renteeId = renteeId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getUsername() {
@@ -55,10 +60,21 @@ public class Rentee implements Principal {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -68,6 +84,7 @@ public class Rentee implements Principal {
         return String.format("Username: %s\n", username);
     }
 
+    @JsonIgnore
     @Override
     public String getName() {
         return username;
@@ -75,7 +92,7 @@ public class Rentee implements Principal {
 
     @Override
     public boolean implies(Subject subject) {
-        return false;
+        return true;
     }
 
 }

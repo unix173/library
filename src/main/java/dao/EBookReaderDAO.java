@@ -1,5 +1,6 @@
 package dao;
 
+import core.book.EBook;
 import core.bookmedium.EBookReader;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
@@ -23,4 +24,13 @@ public class EBookReaderDAO extends AbstractDAO<EBookReader> {
         return list(namedQuery("EBookReader.findAll"));
     }
 
+    public EBookReader findById(Long readerID) {
+        return get(readerID);
+    }
+
+    public EBookReader delete(Long rederId) {
+        EBookReader eBookReader = findById(rederId);
+        currentSession().delete(eBookReader);
+        return eBookReader;
+    }
 }

@@ -31,7 +31,7 @@ public class RenteeDAO extends AbstractDAO<Rentee> {
         return persist(rentee);
     }
 
-    public Rentee findById(Long renteeId) {
+    public Rentee findById(String renteeId) {
         return get(renteeId);
     }
 }

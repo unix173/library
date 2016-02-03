@@ -28,7 +28,11 @@ public class ReservationDAO extends AbstractDAO<Reservation> {
         return reservationToDelete;
     }
 
-    public List<Reservation> findByRenteeId(Long renteeId) {
-        return list(namedQuery("Reservation.findByUserId").setParameter("renteeId", renteeId));
+    public List<Reservation> findByRenteeId(String username) {
+        return list(namedQuery("Reservation.findByUserId").setParameter("username", username));
+    }
+
+    public Reservation update(Reservation reservationToUpdate) {
+        return persist(reservationToUpdate);
     }
 }

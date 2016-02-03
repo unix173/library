@@ -2,7 +2,6 @@ package core.book;
 
 import core.bookmedium.BookMedium;
 import core.bookmedium.HardCoverBook;
-import org.slf4j.Logger;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -25,16 +24,6 @@ public class PaperBook extends Book {
     @Override
     public void setAvailable(boolean available) {
         this.available = available;
-    }
-
-    @Override
-    public void rentBook() {
-        setAvailable(false);
-    }
-
-    @Override
-    public void returnBook() {
-        setAvailable(true);
     }
 
     @Override

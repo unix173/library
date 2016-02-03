@@ -15,8 +15,12 @@ public class UpdateBookReview {
         this.bookReviewDAO = bookReviewDAO;
     }
 
-    public BookReview execute(Long bookReviewId, BookReview bookReview) {
+    public BookReview execute(Rentee rentee, Long bookReviewId, BookReview bookReview) {
+
         BookReview bookReviewToUpdate = bookReviewDAO.findById(bookReviewId);
+        if (!rentee.getUsername().equals(bookReviewToUpdate.getRentee().getUsername())) {
+            return null;
+        }
         if (bookReviewToUpdate != null) {
             if (bookReview.getTitle() != null) {
                 bookReviewToUpdate.setTitle(bookReview.getTitle());

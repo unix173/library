@@ -10,9 +10,9 @@ public class UserAuthorizer implements Authorizer<Rentee> {
 
     @Override
     public boolean authorize(Rentee rentee, String role) {
-        /*if (!role.equals(rentee.getRole())) {
+        if (!role.equals(rentee.getRole())) {
             return false;
-        }*/
+        }
         return true;
     }
 }

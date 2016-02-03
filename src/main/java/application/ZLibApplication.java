@@ -13,6 +13,7 @@ import core.bookmedium.EBookReader;
 import dao.*;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
@@ -26,7 +27,7 @@ import resource.*;
 public class ZLibApplication extends Application<ZLibConfiguration> {
 
     private final HibernateBundle<ZLibConfiguration> hibernateBundle =
-            new HibernateBundle<ZLibConfiguration>(Book.class, BookReview.class, Rentee.class, Reservation.class, PaperBook.class, EBook.class, EBookReader.class) {
+            new HibernateBundle<ZLibConfiguration>(Book.class, PaperBook.class, EBook.class, EBookReader.class, BookReview.class, Rentee.class, Reservation.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(ZLibConfiguration configuration) {
                     return configuration.getDatabase();
@@ -58,14 +59,16 @@ public class ZLibApplication extends Application<ZLibConfiguration> {
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<Rentee>()
                 .setAuthenticator(new UserAuthenticator(renteeDAO, hibernateBundle.getSessionFactory()))
                 .setAuthorizer(new UserAuthorizer())
+                .setRealm("ZLibrary")
                 .buildAuthFilter()));
         environment.jersey().register(bookResource);
         environment.jersey().register(bookReviewResource);
         environment.jersey().register(renteeResource);
         environment.jersey().register(reservationResource);
         environment.jersey().register(eBookReaderResource);
-
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Rentee.class));
     }
+
 
     @Override
     public void initialize(Bootstrap<ZLibConfiguration> bootstrap) {

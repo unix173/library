@@ -28,6 +28,7 @@ public class UserAuthenticator implements Authenticator<BasicCredentials, Rentee
         this.sessionFactory = sessionFactory;
     }
 
+
     @Override
     public com.google.common.base.Optional<Rentee> authenticate(BasicCredentials basicCredentials) throws AuthenticationException {
         Session session = sessionFactory.openSession();
@@ -48,5 +49,6 @@ public class UserAuthenticator implements Authenticator<BasicCredentials, Rentee
         }
         return Optional.absent();
     }
+
 
 }

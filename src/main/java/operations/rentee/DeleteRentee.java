@@ -14,7 +14,7 @@ public class DeleteRentee {
         this.renteeDAO = renteeDAO;
     }
 
-    public Rentee execute(Long renteeId) {
+    public Rentee execute(String renteeId) {
         Rentee renteeToDelete = renteeDAO.findById(renteeId);
         return renteeDAO.delete(renteeToDelete);
     }

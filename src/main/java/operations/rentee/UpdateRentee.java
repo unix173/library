@@ -14,11 +14,11 @@ public class UpdateRentee {
         this.renteeDAO = renteeDAO;
     }
 
-    public Rentee execute(Long renteId, Rentee rentee) {
-        Rentee renteeToUpdate = renteeDAO.findById(renteId);
+    public Rentee execute(Rentee rentee, Rentee renteeUpdateVals) {
+        Rentee renteeToUpdate = renteeDAO.findById(rentee.getUsername());
         if ((renteeToUpdate != null)) {
-            if (rentee.getPassword() != null) {
-                renteeToUpdate.setPassword(rentee.getPassword());
+            if (renteeUpdateVals.getPassword() != null) {
+                renteeToUpdate.setPassword(renteeUpdateVals.getPassword());
             }
         }
         return renteeDAO.update(renteeToUpdate);

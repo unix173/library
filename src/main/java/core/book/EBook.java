@@ -1,6 +1,5 @@
 package core.book;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import core.bookmedium.BookMedium;
 import core.bookmedium.EBookReader;
 
@@ -28,16 +27,6 @@ public class EBook extends Book {
     @Override
     public void setAvailable(boolean available) {
         this.eBookReader.setAvailable(available);
-    }
-
-    @Override
-    public void rentBook() {
-        eBookReader.setAvailable(false);
-    }
-
-    @Override
-    public void returnBook() {
-        eBookReader.setAvailable(true);
     }
 
     @Override

@@ -22,10 +22,10 @@ public class AddNewBookReview {
         this.renteeDAO = renteeDAO;
     }
 
-    public BookReview execute(Long bookId, Long renteeId, BookReview bookReview) {
-        Book book = bookDAO.findById(bookId);
+    public BookReview execute(Rentee rentee, BookReview bookReview) {
+        Book book = bookDAO.findById(bookReview.getBook().getBookId());
         if (book != null) {
-            Rentee rentee = renteeDAO.findById(renteeId);
+            rentee = renteeDAO.findById(rentee.getUsername());
             if (rentee != null) {
                 bookReview.setBook(book);
                 bookReview.setRentee(rentee);

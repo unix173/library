@@ -1,6 +1,8 @@
 package core;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import core.book.Book;
+import org.assertj.core.internal.cglib.core.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +12,7 @@ import java.time.LocalDate;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Reservation.findByRenteeId", query = "From Reservation r where r.rentee.renteeId = :renteeId"),
+        @NamedQuery(name = "Reservation.findByRenteeId", query = "From Reservation r where r.rentee.username = :username"),
 }
 )
 public class Reservation {
@@ -25,20 +27,16 @@ public class Reservation {
     @JoinColumn(name = "bookId")
     private Book book;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "renteeId")
     private Rentee rentee;
 
     private LocalDate creationDate;
+    private boolean active;
 
     public Reservation() {
+        active = true;
         creationDate = LocalDate.now();
-    }
-
-    public Reservation(Book book, Rentee rentee) {
-        super();
-        this.book = book;
-        this.rentee = rentee;
     }
 
     public Long getReservationId() {
@@ -71,5 +69,18 @@ public class Reservation {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @JsonProperty
+    public LocalDate getExpireDate() {
+        return creationDate.plusDays(MAX_DURATION_DAYS);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

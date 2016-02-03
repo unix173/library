@@ -5,6 +5,7 @@ package core.book;
  */
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import core.bookmedium.BookMedium;
@@ -22,7 +23,8 @@ import javax.persistence.*;
  */
 
 @NamedQueries({
-        @NamedQuery(name = "Book.findAll", query = "From Book b"),
+        @NamedQuery(name = "Book.findAll", query = "from Book b"),
+        @NamedQuery(name = "Book.findAvailable", query = "from Book b where b.available = true")
 })
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -41,9 +43,11 @@ public abstract class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bookId;
+    private String ISBN;
+    @JsonProperty(required = true)
+    @Column(nullable = false)
     private String title;
     private String author;
-    @Column(nullable = true)
     private LocalDate year;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
@@ -54,10 +58,6 @@ public abstract class Book {
     public abstract boolean isAvailable();
 
     public abstract void setAvailable(boolean available);
-
-    public abstract void rentBook();
-
-    public abstract void returnBook();
 
     public abstract BookMedium getBookMedium();
 
@@ -106,6 +106,14 @@ public abstract class Book {
 
     public void addReview(BookReview bookReview) {
         bookReviews.add(bookReview);
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 
     @Override

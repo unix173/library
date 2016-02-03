@@ -22,7 +22,7 @@ public class GetReservationsByRentee {
         this.renteeDAO = renteeDAO;
     }
 
-    public List<Reservation> execute(Long renteeId) {
+    public List<Reservation> execute(String renteeId) {
         return reservationDAO.findByRenteeId(renteeId);
     }
 }

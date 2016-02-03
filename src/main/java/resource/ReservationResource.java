@@ -7,10 +7,7 @@ import dao.RenteeDAO;
 import dao.ReservationDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import operations.reservation.AddNewReservation;
-import operations.reservation.DeleteReservation;
-import operations.reservation.GetReservationById;
-import operations.reservation.GetReservationsByRentee;
+import operations.reservation.*;
 
 import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
@@ -35,12 +32,12 @@ public class ReservationResource {
     @GET
     @Path("/rentees/{renteeId}")
     @UnitOfWork
-    public List<Reservation> getReservationsByRentee(@PathParam("renteeId") Long renteeId) {
+    public List<Reservation> getReservationsByRentee(@PathParam("renteeId") String renteeId) {
         return new GetReservationsByRentee(reservationDAO, bookDAO, renteeDAO).execute(renteeId);
     }
 
     @GET
-    @Path("/{reservationId}")
+    @Path("{reservationId}")
     @UnitOfWork
     public Reservation getReservationById(@PathParam("reservationId") Long reservationId) {
         return new GetReservationById(reservationDAO).execute(reservationId);
@@ -49,16 +46,18 @@ public class ReservationResource {
     @PermitAll
     @POST
     @UnitOfWork
-    public Reservation createReservation(Reservation reservation) {
-        return new AddNewReservation(reservationDAO, bookDAO, renteeDAO).execute(reservation);
+    public Reservation createReservation(@Auth Rentee rentee, Reservation reservation) {
+        return new AddNewReservation(reservationDAO, bookDAO, renteeDAO).execute(rentee, reservation);
     }
 
-    @DELETE
-    @Path("/{reservationId}")
+    @PermitAll
+    @PUT
     @UnitOfWork
-    public Reservation deleteReservation(@PathParam("reservationId") Long reservationId) {
-        return new DeleteReservation(reservationDAO, bookDAO, renteeDAO).execute(reservationId);
-    }
+    @Path("{reservationId}")
+    public Reservation deactivateReservation(@Auth Rentee retnee, @PathParam("reservationId") Long reservationId) {
+        return new DeactivateReservation(reservationDAO, bookDAO, renteeDAO).execute(retnee, reservationId);
 
+    }
 
 }
+
