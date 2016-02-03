@@ -18,8 +18,7 @@ import javax.persistence.*;
 
 public class EBook extends Book {
 
-    @OneToOne
-    @JoinColumn(name = "eBookReaderId")
+    @ManyToOne(cascade = CascadeType.ALL)
     private EBookReader eBookReader;
 
     @Override

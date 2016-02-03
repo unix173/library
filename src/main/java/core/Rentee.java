@@ -18,8 +18,6 @@ import java.util.List;
         @NamedQuery(name = "Rentee.findByUsername", query = "From Rentee r where r.username = :username")
 })
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
-        property = "@id")
 public class Rentee implements Principal {
 
     @Id

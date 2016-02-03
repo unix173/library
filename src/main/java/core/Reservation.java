@@ -17,8 +17,6 @@ import java.time.LocalDate;
         @NamedQuery(name = "Reservation.findByRenteeId", query = "From Reservation r where r.rentee.username = :username"),
 }
 )
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
-        property = "@id")
 public class Reservation {
 
     private static final int MAX_DURATION_DAYS = 30;

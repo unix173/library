@@ -20,14 +20,10 @@ public class EBookReader implements BookMedium {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eBookReaderId;
     private String uniqueName;
+    private String ISBN;
     private boolean available = true;
 
-    public List<EBook> geteBookList() {
-        return eBookList;
-    }
-
-    //should take a look
-    @OneToMany(mappedBy = "eBookReader", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "eBookReader", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<EBook> eBookList;
 
@@ -40,8 +36,21 @@ public class EBookReader implements BookMedium {
         this.eBookReaderId = eBookReaderId;
     }
 
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
     public void setUniqueName(String uniqueName) {
         this.uniqueName = uniqueName;
+    }
+
+
+    public List<EBook> geteBookList() {
+        return eBookList;
     }
 
     @Override

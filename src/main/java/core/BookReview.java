@@ -13,12 +13,10 @@ import javax.validation.constraints.NotNull;
         @NamedQuery(name = "BookReview.findByBookId", query = "From BookReview br where br.book.bookId = :bookId")
 })
 @Entity
-
 public class BookReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(required = false)
     @JsonIgnore
     private Long bookReviewId;
 
